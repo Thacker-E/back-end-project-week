@@ -5,6 +5,7 @@
     "express": "^4.16.4",
     "jsonwebtoken": "^8.4.0",
     "knex": "^0.16.2",
+    "server": "^1.0.18",
     "sqlite3": "^4.0.4"
   },
   "devDependencies": {
