@@ -2,15 +2,15 @@ const express = require('express');
 const helmet = require('helmet');
 
 const knex = require('../db/config.js');
-
+const port = process.env.PORT || 3300;
 const server = express();
 
 server.use(helmet());
 server.use(express.json());
 
 server.get('/', (req, res) => {
-    res.status(200).json({server: "8000"})
-})
+    res.send(`Api running on port: ${port}`);
+  });
 
 server.get('/api/notes', async (req, res) => {
   knex('notes')
