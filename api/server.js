@@ -2,14 +2,13 @@ const express = require('express');
 const helmet = require('helmet');
 
 const knex = require('../db/config.js');
-const db = knex;
 const server = express();
 
 server.use(helmet());
 server.use(express.json());
 
 server.get('/api/notes', async (req, res) => {
-  db('notes')
+  knex('notes')
     .then(notes => {
       res.status(200).json(notes);
     })
@@ -19,7 +18,7 @@ server.get('/api/notes', async (req, res) => {
 server.post('/api/notes', (req, res) => {
   const note = req.body;
 
-  db('notes')
+  knex('notes')
     .insert(note)
     .returning('id')
     .then(ids => {
@@ -33,7 +32,7 @@ server.post('/api/notes', (req, res) => {
 server.get('/api/notes/:id', (req, res) => {
   const { id } = req.params;
 
-  db('notes')
+  knex('notes')
     .where({ id: id })
     .then(note => {
       res.status(200).json({ note });
@@ -45,7 +44,7 @@ server.put('/api/notes/:id', (req, res) => {
   const changes = req.body;
   const { id } = req.params;
 
-  db('notes')
+  knex('notes')
     .where({ id: id })
     .update(changes)
     .then(count => {
@@ -57,7 +56,7 @@ server.put('/api/notes/:id', (req, res) => {
 server.delete('/api/notes/:id', (req, res) => {
   const { id } = req.params;
 
-  db('notes')
+  knex('notes')
     .where({ id: id })
     .del()
     .then(count => {
