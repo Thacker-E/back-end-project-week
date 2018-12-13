@@ -8,6 +8,10 @@ const server = express();
 server.use(helmet());
 server.use(express.json());
 
+server.get('/', (req, res) => {
+    res.status(200).json({server: "8000"})
+})
+
 server.get('/api/notes', async (req, res) => {
   knex('notes')
     .then(notes => {
